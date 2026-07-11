@@ -8,7 +8,7 @@ https://stately-tulumba-72840a.netlify.app/
 
 ## Overview
 
-Curio is a client-side product discovery experience built with Next.js. The app loads a cleaned product catalog from JSON, then runs search, filtering, sorting, and UI state updates in the browser for fast interactions.
+Curio is a home goods product discovery experience built with client side NextJS. The app loads a cleaned product catalog from JSON, then runs search, filtering, sorting, and UI state updates in the browser for fast interactions. The application is a lightweight deployment on Netlify (link above) to test the experience. 
 
 The following is some of the core product components with high level implementation details and reference to parts of the codebase where they reside. The design inspiration was taken from analyzing modern ecommerce sites like Fabletics and Nike which have thorough searching and realtime product discovery flows within their catalogue.
 
