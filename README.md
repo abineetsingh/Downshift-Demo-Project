@@ -350,7 +350,8 @@ URL state makes discovery shareable and restorable.
 - Test suite for search/filter/url helpers, some bugs with filter permutations on invalid products
 - Product checkout and add to cart flows/pages
 - Manage favorites flows
-- Authentication, accounts, other traditional ecommerce page elements i.e store locations etc.
+- Authentication
+- Traditional ecommerce page elements i.e store locations, about page, contact etc.
 - Better product images that are not clipped
 - Home banner can be a slideshow of other images - similar to Nike home page with auto scrolling
 - Production grade deployment with CICD on cloud infra (Vercel + Supabase or AWS) depending on user scale
