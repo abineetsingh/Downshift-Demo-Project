@@ -1,8 +1,12 @@
 # Downshift Demo Product Architecture
 
-## Overview
-
 ![Curio black banner](branding/curio-banner-dark.png)
+
+#View deployed application HERE
+
+https://stately-tulumba-72840a.netlify.app/
+
+## Overview
 
 Curio is a client-side product discovery experience built with Next.js. The app loads a cleaned product catalog from JSON, then runs search, filtering, sorting, and UI state updates in the browser for fast interactions.
 
