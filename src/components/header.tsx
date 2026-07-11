@@ -33,14 +33,16 @@ export function Header({
       <div className="bg-black">
         <div className="mx-auto grid h-14 max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-4 lg:px-8">
           <div aria-hidden="true" />
-          <Image
-            src="/branding/curio-banner-dark.png"
-            alt="Curio"
-            width={168}
-            height={39}
-            priority
-            className="h-10 w-auto object-contain"
-          />
+          <a href="/" aria-label="Refresh Curio home" className="inline-flex focus:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <Image
+              src="/branding/curio-banner-dark.png"
+              alt="Curio"
+              width={168}
+              height={39}
+              priority
+              className="h-10 w-auto object-contain"
+            />
+          </a>
           <div aria-hidden="true" />
         </div>
       </div>
