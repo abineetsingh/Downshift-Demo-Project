@@ -6,7 +6,9 @@
 
 Curio is a client-side product discovery experience built with Next.js. The app loads a cleaned product catalog from JSON, then runs search, filtering, sorting, and UI state updates in the browser for fast interactions.
 
-The following is some of the core product components with high level implementation details and reference to parts of the codebase where they reside. The design inspiration was taken fromanalyzing modern ecommerce sites like Fabletics and Nike which have thorough searching and realtime product discovery flows within their catalogue. 
+The following is some of the core product components with high level implementation details and reference to parts of the codebase where they reside. The design inspiration was taken from analyzing modern ecommerce sites like Fabletics and Nike which have thorough searching and realtime product discovery flows within their catalogue.
+
+The code base was developed using Claude and Codex using some custom skills I have acquired and have been experimenting with. The docs folder will have some of the brainstorming sessions were generated from the conversational elements in the requirements elicitation and discovery phase before the product code was generated and iterated upon. Post development features have been examined, tested and adjusted based off personal preferenecs. 
 
 ## Data Source
 
