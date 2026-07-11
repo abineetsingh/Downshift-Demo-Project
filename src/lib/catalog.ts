@@ -27,7 +27,7 @@ export function normalizeProduct(product: RawProduct): NormalizedProduct | null 
 
   const title = titleCase(product.title);
   const price = parsePrice(product.price);
-  if (price === 0) return null;
+  if (price === null || price === 0) return null;
 
   return {
     id: product.id,

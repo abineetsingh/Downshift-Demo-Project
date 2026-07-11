@@ -38,36 +38,7 @@ export function Header({
             priority
             className="h-10 w-auto object-contain"
           />
-          <nav className="hidden items-center justify-end gap-5 text-xs font-medium text-white md:flex" aria-label="Utility">
-            <a href="#" className="flex items-center gap-2 hover:text-white/80">
-              <span className="flex h-4 w-4 items-center justify-center rounded-full border border-white text-[10px] font-black leading-none">
-                ?
-              </span>
-              Help & Contact
-            </a>
-            <a href="#" className="flex items-center gap-2 hover:text-white/80">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M4 10h16l-1.4-5.2A1.1 1.1 0 0 0 17.5 4h-11a1.1 1.1 0 0 0-1.1.8L4 10Z"
-                  fill="currentColor"
-                />
-                <path d="M6 10v8h6m6-8v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                <path
-                  d="M17.5 21s3.5-3 3.5-5.1a3.5 3.5 0 0 0-7 0c0 2.1 3.5 5.1 3.5 5.1Z"
-                  fill="currentColor"
-                />
-                <circle cx="17.5" cy="15.8" r="1.2" fill="black" />
-              </svg>
-              Store Locations
-            </a>
-            <a href="#" className="flex items-center gap-2 hover:text-white/80">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2.2" />
-                <path d="M4.5 21a7.5 7.5 0 0 1 15 0" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-              </svg>
-              Sign In
-            </a>
-          </nav>
+          <div aria-hidden="true" />
         </div>
       </div>
       <div className="relative border-b border-border bg-surface">
