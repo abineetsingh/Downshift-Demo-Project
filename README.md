@@ -2,7 +2,7 @@
 
 ![Curio black banner](branding/curio-banner-dark.png)
 
-#View deployed application HERE
+# View deployed application HERE
 
 https://stately-tulumba-72840a.netlify.app/
 
