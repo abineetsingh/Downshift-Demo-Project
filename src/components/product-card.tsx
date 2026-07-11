@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { NormalizedProduct } from "@/lib/types";
+import { FavoriteButton } from "./favorite-button";
+import { useFavorites } from "@/lib/favorites";
 
 function formatPrice(price: number | null) {
   if (price === null) return "";
@@ -15,6 +17,9 @@ function formatPrice(price: number | null) {
 
 export function ProductCard({ item }: { item: NormalizedProduct }) {
   const [hidden, setHidden] = useState(false);
+  const { favorites, toggleFavorite } = useFavorites();
+  const isFavorite = favorites.has(item.id);
+
   if (hidden) return null;
 
   return (
@@ -33,6 +38,12 @@ export function ProductCard({ item }: { item: NormalizedProduct }) {
             Out of stock
           </span>
         )}
+        <FavoriteButton
+          active={isFavorite}
+          label={isFavorite ? `Remove ${item.title} from favorites` : `Add ${item.title} to favorites`}
+          onClick={() => toggleFavorite(item.id)}
+          className={`absolute right-3 top-3 h-10 w-10 ${isFavorite ? "text-white" : "text-white/75"}`}
+        />
       </div>
       <div className="mt-3 space-y-1">
         <p className="font-serif text-xl leading-tight text-foreground">{item.title}</p>

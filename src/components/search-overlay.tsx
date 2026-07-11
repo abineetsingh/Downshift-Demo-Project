@@ -6,8 +6,13 @@ import { vocabularyTerms } from "@/lib/facets";
 import { runDiscovery } from "@/lib/filter";
 import type { CatalogVocabulary, DiscoveryState, NormalizedProduct } from "@/lib/types";
 import Image from "next/image";
+import { FavoriteButton } from "./favorite-button";
+import { useFavorites } from "@/lib/favorites";
 
-function OverlayProductCard({ item }: { item: NormalizedProduct }) {
+function OverlayProductCard({ item, showFavorite = true }: { item: NormalizedProduct; showFavorite?: boolean }) {
+  const { favorites, toggleFavorite } = useFavorites();
+  const isFavorite = favorites.has(item.id);
+
   return (
     <article>
       <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-border bg-surface">
@@ -18,6 +23,14 @@ function OverlayProductCard({ item }: { item: NormalizedProduct }) {
           sizes="(min-width: 1280px) 16vw, (min-width: 768px) 25vw, 50vw"
           className="object-cover"
         />
+        {showFavorite && (
+          <FavoriteButton
+            active={isFavorite}
+            label={isFavorite ? `Remove ${item.title} from favorites` : `Add ${item.title} to favorites`}
+            onClick={() => toggleFavorite(item.id)}
+            className={`absolute right-3 top-3 h-9 w-9 ${isFavorite ? "text-white" : "text-white/75"}`}
+          />
+        )}
       </div>
       <p className="mt-3 font-serif text-xl leading-tight text-foreground">{item.title}</p>
     </article>
@@ -30,6 +43,7 @@ export function SearchOverlay({
   catalog,
   vocabulary,
   state,
+  favoritesOnly,
   onSearch,
   onClose,
 }: {
@@ -38,10 +52,12 @@ export function SearchOverlay({
   catalog: NormalizedProduct[];
   vocabulary: CatalogVocabulary;
   state: DiscoveryState;
+  favoritesOnly: boolean;
   onSearch: (query: string) => void;
   onClose: () => void;
 }) {
   const [recent, setRecent] = useState<string[]>([]);
+  const { favorites } = useFavorites();
 
   useEffect(() => {
     if (open) setRecent(getRecentSearches());
@@ -64,12 +80,17 @@ export function SearchOverlay({
   }, [query, terms]);
 
   const featured = useMemo(() => {
-    if (query.trim()) return runDiscovery(catalog, { ...state, query }).slice(0, 3);
+    const ranked = query.trim()
+      ? runDiscovery(catalog, { ...state, query })
+      : favoritesOnly
+        ? runDiscovery(catalog, { ...state, query: "" }).sort(
+            (a, b) => (b.rating ?? 0) * b.reviews - (a.rating ?? 0) * a.reviews,
+          )
+        : [...catalog].sort((a, b) => (b.rating ?? 0) * b.reviews - (a.rating ?? 0) * a.reviews);
+    const filtered = favoritesOnly ? ranked.filter((item) => favorites.has(item.id)) : ranked;
 
-    return [...catalog]
-      .sort((a, b) => (b.rating ?? 0) * b.reviews - (a.rating ?? 0) * a.reviews)
-      .slice(0, 5);
-  }, [catalog, query, state]);
+    return filtered.slice(0, query.trim() ? 3 : 5);
+  }, [catalog, favorites, favoritesOnly, query, state]);
 
   const trending = useMemo(() => {
     const score = new Map<string, number>();
@@ -121,6 +142,9 @@ export function SearchOverlay({
                   <OverlayProductCard key={item.id} item={item} />
                 ))}
               </div>
+              {favoritesOnly && featured.length === 0 && (
+                <p className="text-sm text-secondary">No favorite products match this search.</p>
+              )}
             </section>
           </div>
         ) : (
@@ -169,9 +193,12 @@ export function SearchOverlay({
               </h2>
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
                 {featured.map((item) => (
-                  <OverlayProductCard key={item.id} item={item} />
+                  <OverlayProductCard key={item.id} item={item} showFavorite={false} />
                 ))}
               </div>
+              {favoritesOnly && featured.length === 0 && (
+                <p className="text-sm text-secondary">No favorite products match this category.</p>
+              )}
             </section>
           </div>
         )}

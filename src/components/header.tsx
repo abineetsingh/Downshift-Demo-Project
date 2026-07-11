@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { SearchOverlay } from "./search-overlay";
 import type { CatalogVocabulary, DiscoveryState, NormalizedProduct } from "@/lib/types";
 
@@ -25,6 +26,8 @@ export function Header({
   onQueryChange: (query: string) => void;
   onSearchCommit: (query: string) => void;
 }) {
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+
   return (
     <header className="sticky top-0 z-40">
       <div className="bg-black">
@@ -75,8 +78,35 @@ export function Header({
                 onChange={(event) => onQueryChange(event.target.value)}
                 onFocus={onOverlayOpen}
                 placeholder="Search"
-                className="h-12 w-full rounded-md border border-border bg-background px-4 pl-11 text-base text-foreground shadow-[inset_0_1px_1px_rgba(23,23,23,0.04)] outline-none transition-shadow placeholder:text-secondary focus:shadow-[0_10px_28px_rgba(23,23,23,0.14),inset_0_1px_1px_rgba(23,23,23,0.04)]"
+                className="h-12 w-full rounded-md border border-border bg-background px-4 pl-11 pr-12 text-base text-foreground shadow-[inset_0_1px_1px_rgba(23,23,23,0.04)] outline-none transition-shadow placeholder:text-secondary focus:shadow-[0_10px_28px_rgba(23,23,23,0.14),inset_0_1px_1px_rgba(23,23,23,0.04)]"
               />
+              <button
+                type="button"
+                aria-label={favoritesOnly ? "Show all matching products" : "Show favorite matching products"}
+                aria-pressed={favoritesOnly}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setFavoritesOnly((current) => !current);
+                  onOverlayOpen();
+                }}
+                className={`absolute right-4 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center transition hover:text-foreground ${
+                  favoritesOnly ? "text-foreground" : "text-secondary/75"
+                }`}
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill={favoritesOnly ? "currentColor" : "none"}
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20.8 4.6c-2-1.8-5.1-1.5-6.8.6L12 7.5l-2-2.3C8.3 3.1 5.2 2.8 3.2 4.6.9 6.7.8 10.3 3 12.6l9 8.8 9-8.8c2.2-2.3 2.1-5.9-.2-8Z" />
+                </svg>
+              </button>
             </div>
             {overlayOpen && (
               <button
@@ -95,6 +125,7 @@ export function Header({
           catalog={catalog}
           vocabulary={vocabulary}
           state={state}
+          favoritesOnly={favoritesOnly}
           onSearch={onSearchCommit}
           onClose={onOverlayClose}
         />
