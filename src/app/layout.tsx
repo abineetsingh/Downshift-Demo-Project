@@ -22,7 +22,12 @@ export const metadata: Metadata = {
   title: "Curio",
   description: "Editorial home goods discovery.",
   icons: {
-    icon: "/branding/curio-icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/branding/curio-icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/branding/curio-icon.png",
   },
 };
 

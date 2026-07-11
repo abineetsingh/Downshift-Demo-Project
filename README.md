@@ -260,6 +260,7 @@ Null-price products are omitted before sorting, so they do not need price-sort f
 - Overlay UI: `src/components/search-overlay.tsx`
 - Recent searches: `src/lib/recent-searches.ts`
 - Header/search input: `src/components/header.tsx`
+- Favorites storage: `src/lib/favorites.ts`
 
 ### Empty Search State
 
@@ -289,6 +290,42 @@ They do not show:
 - Price
 - Rating
 - Review count
+
+## Favorites
+
+### Files
+
+- Favorites hook/storage: `src/lib/favorites.ts`
+- Favorite button: `src/components/favorite-button.tsx`
+- Search bar favorites filter: `src/components/header.tsx`
+- Overlay product filtering: `src/components/search-overlay.tsx`
+
+### Behavior
+
+- Main grid product cards can be favorited with the heart icon.
+- Searched Featured Results cards can be favorited with the heart icon.
+- Preloaded Trending Products cards are view-only and do not expose favorite controls.
+- The search-bar heart filters overlay product recommendations down to matching favorites.
+
+### Storage
+
+- Favorites are saved locally in browser `localStorage`.
+- Favorites are not stored in a database.
+- Favorites are not tied to authentication or a user account.
+
+## Favicon
+
+### File
+
+- Browser icon source: `public/branding/curio-icon.png`
+- Root favicon: `public/favicon.ico`
+- Next app favicon: `src/app/favicon.ico`
+- Metadata configuration: `src/app/layout.tsx`
+
+### Behavior
+
+- The app uses the black Curio C logo as the browser favicon.
+- The same icon is referenced for standard, shortcut, and Apple touch icon metadata.
 
 ## Main Product Grid
 
